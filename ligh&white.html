@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Light & Dark mode</title>
+    <style>
+      :root {
+        --background-color: #232323;
+        --text-color: white;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        overflow-x: hidden;
+        background-color: var(--background-color);
+        display: grid;
+        place-content: center;
+        height: 100vh;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--text-color);
+      }
+
+      .switch {
+        width: 75px;
+        background: #2f2f2f;
+        border-radius: 5rem;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        cursor: pointer;
+      }
+
+      .handle {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <p class="label">Dark</p>
+      <div class="switch" id="switch">
+        <div class="handle" id="handle"></div>
+      </div>
+      <p class="label">Light</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script>
+      const background = document.querySelector('body');
+      const container = document.getElementById('container');
+      const switchBtn = document.getElementById('switch');
+      const handle = document.getElementById('handle');
+
+      let switchStatus = false; // 0 is dark, 1 is light
+
+      switchBtn.addEventListener('click', () => {
+        if (!switchStatus) {
+          gsap.to(background, { backgroundColor: 'white', duration: 0.5 });
+          gsap.to(container, { color: 'black', duration: 0.5 });
+          gsap.to(handle, { x: '30px' });
+          switchStatus = true;
+        } else {
+          gsap.to(background, { backgroundColor: '#232323', duration: 0.5 });
+          gsap.to(container, { color: 'white', duration: 0.5 });
+          gsap.to(handle, { x: '0px' });
+          switchStatus = false;
+        }
+      });
+    </script>
+  </body>
+</html>
